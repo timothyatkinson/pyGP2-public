@@ -25,7 +25,7 @@ class GP2_Program:
         self.file_path = file_path
         self.mode = "from_file"
 
-    def compile(self):
+    def compile(self, clean=True):
         self.compiled = True
         #Get gp2_directory
         gp2_directory = config.get_config(0).path
@@ -61,7 +61,7 @@ class GP2_Program:
         process.wait()
 
         #Generate a makefile
-        make_file_string = get_make_file(self.name, gp2_directory)
+        make_file_string = get_make_file(self.name, gp2_directory, clean=clean)
         make_file_path = working_dir + "/Makefile"
         with open(make_file_path, "w") as text_file:
             text_file.write(make_file_string)
