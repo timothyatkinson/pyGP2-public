@@ -1,4 +1,4 @@
-from pyLabel import *
+from pyGP2.pyLabel import *
 
 class GP2_Edge():
     def __init__(self, source, target, label=[], mark=Mark.NONE):
