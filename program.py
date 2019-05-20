@@ -4,6 +4,7 @@ import sys
 from shutil import copyfile
 import subprocess
 import shutil
+import importlib
 
 #Change this to 'gp2.exe' on windows
 default_execute = 'gp2'
