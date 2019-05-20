@@ -1,6 +1,6 @@
 import pyGP2.config as config
 import pyGP2.GP2_lib as GP2_lib
-import os
+import sys
 from shutil import copyfile
 import subprocess
 import shutil
@@ -172,10 +172,9 @@ setup(
     return my_string
 
 def load_compiled_program(name, directory):
-    cwd = os.getcwd()
-    os.chdir(directory + "/build_pyGP2_" + name)
-    i = __import__("pyGP2_" + name, fromlist=[''])
-    os.chdir(cwd)
+    sys.path.insert(0, directory + "/build_pyGP2_" + name)
+    i = importlib.import_module("pyGP2_" + name)
+    sys.path.pop(0)
     program = GP2_Program(name)
     program.compiled = True
     program.apply = i.apply
