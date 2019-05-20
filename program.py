@@ -173,7 +173,7 @@ setup(
 
 def load_compiled_program(name, directory):
     cwd = os.getcwd()
-    os.chdir(directory + "/build_pyGP2" + name)
+    os.chdir(directory + "/build_pyGP2_" + name)
     i = __import__("pyGP2_" + name, fromlist=[''])
     os.chdir(cwd)
     program = GP2_Program(name)
