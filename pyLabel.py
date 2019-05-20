@@ -128,3 +128,7 @@ def list_to_label(ls):
         else:
             raise ValueError("Object " + str(l) + " is not a valid label.")
     return label
+
+
+def copy_label(label):
+    return [atom.copy() for atom in label]
