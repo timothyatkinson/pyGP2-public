@@ -63,6 +63,9 @@ class GP2_Atom():
         self.num = None
         self.ch = None
 
+    def copy(self):
+        return GP2_Atom(num=self.num, string=self.string, ch=self.ch)
+
 def validate_mark(mark):
     values = set(item.value for item in Mark)
     return mark in values
