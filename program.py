@@ -5,6 +5,7 @@ from shutil import copyfile
 import subprocess
 import shutil
 import importlib
+import os
 
 #Change this to 'gp2.exe' on windows
 default_execute = 'gp2'
@@ -89,10 +90,9 @@ class GP2_Program:
         process = subprocess.Popen("make -C " + working_dir + "/", shell=True, stdout=subprocess.DEVNULL)
         process.wait()
 
-        cwd = os.getcwd()
-        os.chdir(working_dir)
-        i = __import__(self.name, fromlist=[''])
-        os.chdir(cwd)
+        sys.path.insert(0, working_dir)
+        i = importlib.import_module("pyGP2_" + self.name)
+        sys.path.pop(0)
         self.apply = i.apply
 
     #Applies the compiled program directly to a c_graph wrapper in GP2_lib's
