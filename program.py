@@ -24,6 +24,7 @@ class GP2_Program:
         self.mode = "from_file"
 
     def compile(self):
+        self.compiled = True
         #Get gp2_directory
         gp2_directory = config.get_config(0).path
 
@@ -86,6 +87,12 @@ class GP2_Program:
         #Build the c gp2 code into a shared library
         process = subprocess.Popen("make -C " + working_dir + "/", shell=True, stdout=subprocess.DEVNULL)
         process.wait()
+
+        cwd = os.getcwd()
+        os.chdir(working_dir)
+        i = __import__(self.name, fromlist=[''])
+        os.chdir(cwd)
+        self.apply = i.apply
 
     #Applies the compiled program directly to a c_graph wrapper in GP2_lib's
     #cGraph_wrapper class
@@ -163,3 +170,13 @@ setup(
     ext_modules=cythonize([examples_extension])
 )'''
     return my_string
+
+def load_compiled_program(name, directory):
+    cwd = os.getcwd()
+    os.chdir(directory + "/build_pyGP2" + name)
+    i = __import__("pyGP2_" + name, fromlist=[''])
+    os.chdir(cwd)
+    program = GP2_Program(name)
+    program.compiled = True
+    program.apply = i.apply
+    return program
