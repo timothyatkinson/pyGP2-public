@@ -109,7 +109,7 @@ class GP2_Program:
         c_graph_wrapper = GP2_lib.graph_to_c(py_graph)
         self.execute_c(c_graph_wrapper)
         py_graph = GP2_lib.graph_to_py(c_graph_wrapper)
-        c_graph_wrapper.free()
+        GP2_lib.free_graph_c(c_graph_wrapper)
         return py_graph
 
 def get_make_file(name, gp2_dir, clean=True):
