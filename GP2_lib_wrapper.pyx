@@ -116,6 +116,7 @@ def get_atom_c(gp2_atom) -> cAtom_wrapper:
 def get_atom_py(atom: cAtom_wrapper):
   cdef HostAtom c_atom = atom.atom
   if c_atom.type == 's':
+    print(c_atom.str)
     py_atom = GP2_Atom(string=c_atom.str.decode("UTF-8"))
   elif c_atom.type == 'i':
     py_atom = GP2_Atom(num=c_atom.num)
