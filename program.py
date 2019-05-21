@@ -118,7 +118,7 @@ LIBDIR=''' + gp2_dir + '''/lib\n
 OBJECTS := *.c
 CC=gcc
 
-CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -fomit-frame-pointer -O2 -Wall -Wextra -lgp2 -lm -fPIC -fno-semantic-interposition
+CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -O2 -Wall -Wextra -lgp2 -lm -fPIC -fno-semantic-interposition
 
 default:	$(OBJECTS)
 		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''.so
