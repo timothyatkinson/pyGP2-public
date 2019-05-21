@@ -85,7 +85,7 @@ cdef char* string_to_c(py_string):
   if c_argv is NULL:
     raise MemoryError()
   # Convert str to char* and store it into our char**
-  py_string = py_string.encode()
+  py_string = <bytes>py_string.encode()
   c_argv = py_string
   c_argv[len(py_string)] = '\0'
   return c_argv
