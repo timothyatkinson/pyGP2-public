@@ -85,7 +85,7 @@ cdef char* string_to_c(py_string):
   if c_argv is NULL:
     raise MemoryError()
   # Convert str to char* and store it into our char**
-  py_string = <bytes>py_string.encode()
+  py_string = py_string.encode('UTF-8')
   c_argv = py_string
   c_argv[len(py_string)] = '\0'
   return c_argv
@@ -269,10 +269,6 @@ cdef class cGraph_wrapper:
 
     cdef Graph* get_graph(self):
       return self.graph
-
-
-
-
 
 #Converts a pyGraph GP2_Graph object to a c-based Graph* from graph.h, wrapper in a cGraph_wrapper
 def graph_to_c(py_graph, size_n = 1000, size_e = 2000):
