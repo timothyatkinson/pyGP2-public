@@ -300,7 +300,6 @@ def print_cGraph(wrapper: cGraph_wrapper):
 
 #Converts a Graph* from graph.h wrapped in a cGraph_wrapper to a pyGraph Gp2_Graph object
 def graph_to_py(c_graph: cGraph_wrapper):
-  printfGraph(c_graph.graph)
   py_graph = GP2_Graph()
   node_map = {}
   cdef Graph* graph = c_graph.graph
