@@ -124,7 +124,7 @@ default:	$(OBJECTS)
 		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''.so
 		python3 ''' + name + '''_setup.py build_ext --inplace\n'''
     if clean:
-        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py *.h\n'''
+        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py\n'''
     my_string += '''clean:
 		rm *'''
     return my_string
