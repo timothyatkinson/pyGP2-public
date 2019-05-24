@@ -111,6 +111,23 @@ class GP2_Program:
         py_graph = GP2_lib.graph_to_py(c_graph_wrapper)
         GP2_lib.free_graph_c(c_graph_wrapper)
         return py_graph
+#
+# def get_make_file(name, gp2_dir, clean=True):
+#     my_string = '''INCDIR=''' + gp2_dir + '''/include\n
+# LIBDIR=''' + gp2_dir + '''/lib\n
+# OBJECTS := *.c
+# CC=gcc
+#
+# CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -O2 -Wall -Wextra -lgp2 -lm -fPIC -fno-semantic-interposition
+#
+# default:	$(OBJECTS)
+# 		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''.so
+# 		python3 ''' + name + '''_setup.py build_ext --inplace\n'''
+#     if clean:
+#         my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py\n'''
+#     my_string += '''clean:
+# 		rm *'''
+#     return my_string
 
 def get_make_file(name, gp2_dir, clean=True):
     my_string = '''INCDIR=''' + gp2_dir + '''/include\n
@@ -118,10 +135,11 @@ LIBDIR=''' + gp2_dir + '''/lib\n
 OBJECTS := *.c
 CC=gcc
 
-CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -O2 -Wall -Wextra -lgp2 -lm -fPIC -fno-semantic-interposition
+CFLAGS = -I$(INCDIR) -L$(LIBDIR) -O2 -Wall -Wextra -lgp2 -lm -fPIC
 
 default:	$(OBJECTS)
-		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''.so
+		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''_gp2.a
+        ar crsT lib''' + name + '''.a ''' + gp2_dir + '''/lib/libgp2.a ''' + name + '''_gp2.a
 		python3 ''' + name + '''_setup.py build_ext --inplace\n'''
     if clean:
         my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py\n'''
@@ -149,7 +167,7 @@ cdef extern from "''' + name + '''.h":
 
 def apply(graph):
   cdef cGraph_wrapper c_graph = <cGraph_wrapper> graph
-  ''' + name + '''_execute(c_graph.graph)'''
+  return ''' + name + '''_execute(c_graph.graph)'''
     return my_string
 
 def get_cython_setup(name, gp2_dir, working_dir):
