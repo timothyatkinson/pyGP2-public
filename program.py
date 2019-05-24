@@ -135,16 +135,14 @@ LIBDIR=''' + gp2_dir + '''/lib\n
 OBJECTS := *.c
 CC=gcc
 
-CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -O2 -Wall -Wextra -lgp2 -lm -fPIC
+CFLAGS = -shared -I$(INCDIR) -L$(LIBDIR) -O3 -Wall -Wextra -lgp2 -lm -fPIC
 
 default:	$(OBJECTS)
 		$(CC) $(OBJECTS) $(CFLAGS) -o lib''' + name + '''_gp2.a
-        ar x lib''' + name + '''_gp2.a && mv *.o lib''' + name + '''_gp2_objs
-        ar x ''' + gp2_dir + '''/lib/libgp2.a lib && mv *.o libgp2_objs
-        ar c lib''' + name + '''.a lib''' + name + '''_gp2_objs/*.o libgp2_objs/*.o
+		ar crsT lib''' + name + '''.a ''' + gp2_dir + '''/lib/libgp2.a lib''' + name + '''_gp2.a
 		python3 ''' + name + '''_setup.py build_ext --inplace\n'''
     if clean:
-        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py lib''' + name + '''_gp2.a lib''' + name + '''_gp2_objs libgp2_objs\n'''
+        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py lib''' + name + '''_gp2.a\n'''
     my_string += '''clean:
 		rm *'''
     return my_string
