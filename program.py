@@ -142,7 +142,7 @@ default:	$(OBJECTS)
 		ar crsT lib''' + name + '''.a ''' + gp2_dir + '''/lib/libgp2.a lib''' + name + '''_gp2.a
 		python3 ''' + name + '''_setup.py build_ext --inplace\n'''
     if clean:
-        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py lib''' + name + '''_gp2.a\n'''
+        my_string += '''		rm -r -f build *.log *.demo Makefile *.gp2 *.c *.pyx *.py\n'''
     my_string += '''clean:
 		rm *'''
     return my_string
