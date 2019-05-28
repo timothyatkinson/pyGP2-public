@@ -139,8 +139,11 @@ cdef HostList* hostlist_to_c(gp2_atoms):
     atoms[i] = host_atom
     i += 1
   cdef HostList* list
-  list = makeHostList(atoms, length, 1)
+  list = makeHostList(atoms, length, 0)
   free(atoms)
+  for i in range(length):
+    if atoms[i].type == 's':
+      free(atoms[i].str)
   return list
 
 def get_hostlist_c(gp2_atoms):
