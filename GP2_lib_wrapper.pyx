@@ -86,7 +86,8 @@ cdef char* string_to_c(py_string):
     raise MemoryError()
   # Convert str to char* and store it into our char**
   py_string = py_string.encode('UTF-8')
-  c_argv = py_string
+  for i in range(len(py_string)):
+    c_argv[i] = py_string[i]
   c_argv[len(py_string)] = '\0'
   return c_argv
 
