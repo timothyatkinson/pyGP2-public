@@ -132,7 +132,7 @@ cdef class cHostList_wrapper:
 #Mapping from a list of pyLabel.GP2_Atoms to label.h's HostList
 cdef HostList* hostlist_to_c(gp2_atoms):
   length = len(gp2_atoms)
-  cdef HostAtom atoms[length]
+  cdef HostAtom *atoms = <HostAtom*>malloc(length * sizeof(HostAtom))
   i = 0
   for gp2_atom in gp2_atoms:
     host_atom = atom_to_c(gp2_atom)
@@ -140,6 +140,7 @@ cdef HostList* hostlist_to_c(gp2_atoms):
     i += 1
   cdef HostList* list
   list = makeHostList(atoms, length, 0)
+  free(atoms)
   return list
 
 def get_hostlist_c(gp2_atoms):
