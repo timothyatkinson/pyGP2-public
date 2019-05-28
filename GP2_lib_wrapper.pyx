@@ -139,7 +139,7 @@ cdef HostList* hostlist_to_c(gp2_atoms):
     atoms[i] = host_atom
     i += 1
   cdef HostList* list
-  list = makeHostList(atoms, length, 0)
+  list = makeHostList(atoms, length, 1)
   free(atoms)
   return list
 
