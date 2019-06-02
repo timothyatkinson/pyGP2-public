@@ -2,8 +2,6 @@ from pyGP2.pyLabel import *
 import copy
 class GP2_Edge():
     def __init__(self, source, target, label=[], mark=Mark.NONE):
-        if not validate_label(label):
-            raise ValueError("Invalid label: " + label_string(label))
         self.label = label
         self.mark = mark
         self.source = source
@@ -38,8 +36,6 @@ class GP2_Edge():
 
 class GP2_Node():
     def __init__(self, label=[], mark=Mark.NONE, root = False):
-        if not validate_label(label):
-            raise ValueError("Invalid label: " + label_string(label))
         self.label = label
         self.mark = mark
         self.in_edges = []
@@ -174,14 +170,13 @@ class GP2_Graph():
         return string
 
     def copy(self):
-        return copy.deepcopy(self)
-        # node_map = {}
-        # new_g = GP2_Graph()
-        # for node in self.nodes:
-        #     node_copy = GP2_Node(label=copy_label(node.label), mark=node.mark, root=node.root)
-        #     new_g.add_node(node_copy)
-        #     node_map[node] = node_copy
-        #
-        # for edge in self.get_edges():
-        #     new_g.add_edge(node_map[edge.source], node_map[edge.target], label=copy_label(edge.label), mark=edge.mark)
-        # return new_g
+        node_map = {}
+        new_g = GP2_Graph()
+        for node in self.nodes:
+            node_copy = GP2_Node(label=copy_label(node.label), mark=node.mark, root=node.root)
+            new_g.add_node(node_copy)
+            node_map[node] = node_copy
+
+        for edge in self.get_edges():
+            new_g.add_edge(node_map[edge.source], node_map[edge.target], label=copy_label(edge.label), mark=edge.mark)
+        return new_g

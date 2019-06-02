@@ -12,8 +12,6 @@ class GP2_Atom():
         self.num = num
         self.ch = ch
         self.string = string
-        if not self.verify():
-            raise ValueError("Invalid GP2_Atom.")
 
     def get_type(self):
         if(self.num != None):
