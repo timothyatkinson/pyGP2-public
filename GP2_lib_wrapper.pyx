@@ -276,7 +276,7 @@ cdef class cGraph_wrapper:
       return self.graph
 
 #Converts a pyGraph GP2_Graph object to a c-based Graph* from graph.h, wrapper in a cGraph_wrapper
-def graph_to_c(py_graph, size_n = 1000, size_e = 2000):
+def graph_to_c(py_graph, size_n = 150, size_e = 300):
   if size_n == None:
     nodes = py_graph.count_nodes()
     size_n = nodes * 2

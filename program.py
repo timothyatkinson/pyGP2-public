@@ -31,7 +31,7 @@ class GP2_Program:
         gp2_directory = config.get_config(0).path
 
         #Set up args
-        working_dir = os.path.abspath("build_pyGP2_") + self.name
+        working_dir = os.path.abspath("pyGP2_cache/build_pyGP2_") + self.name
         if not os.path.exists(working_dir):
             os.makedirs(working_dir)
         else:
@@ -191,7 +191,7 @@ setup(
     return my_string
 
 def load_compiled_program(name, directory):
-    sys.path.insert(0, directory + "/build_pyGP2_" + name)
+    sys.path.insert(0, directory + "pyGP2_cache/build_pyGP2_" + name)
     i = importlib.import_module("pyGP2_" + name)
     sys.path.pop(0)
     program = GP2_Program(name)
