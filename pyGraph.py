@@ -180,3 +180,10 @@ class GP2_Graph():
         for edge in self.get_edges():
             new_g.add_edge(node_map[edge.source], node_map[edge.target], label=copy_label(edge.label), mark=edge.mark)
         return new_g
+
+def disjoint_union(G1, G2):
+    G1 = G1.copy()
+    G2 = G2.copy()
+    for node in G2.nodes:
+        G1.add_node(node)
+    return G1
