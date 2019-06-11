@@ -191,7 +191,7 @@ setup(
     return my_string
 
 def load_compiled_program(name, directory):
-    sys.path.insert(0, directory + "pyGP2_cache/build_pyGP2_" + name)
+    sys.path.insert(0, directory + "/pyGP2_cache/build_pyGP2_" + name)
     i = importlib.import_module("pyGP2_" + name)
     sys.path.pop(0)
     program = GP2_Program(name)
