@@ -59,7 +59,7 @@ class GP2_Program:
         compile_args = execute_cmd + " -l " + gp2_directory + " -m " + self.name + " -o "  + working_dir + " " + program_path
         process = subprocess.Popen(compile_args, shell=True, stdout=subprocess.DEVNULL)
         process.wait()
-        process.close()
+        process.terminate()
 
         #Generate a makefile
         make_file_string = get_make_file(self.name, gp2_directory, clean=clean)
@@ -90,7 +90,7 @@ class GP2_Program:
         #Build the c gp2 code into a shared library
         process = subprocess.Popen("make -C " + working_dir + "/", shell=True, stdout=subprocess.DEVNULL)
         process.wait()
-        process.close()
+        process.terminate()
 
         sys.path.insert(0, working_dir)
         i = importlib.import_module("pyGP2_" + self.name)
