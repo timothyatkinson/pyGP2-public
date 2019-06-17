@@ -93,6 +93,8 @@ class GP2_Program:
         process.terminate()
 
         sys.path.insert(0, working_dir)
+        if "pyGP2_" + self.name in sys.modules:
+            del sys.modules["pyGP2_" + self.name]
         i = importlib.import_module("pyGP2_" + self.name)
         importlib.reload(i)
         sys.path.pop(0)
@@ -195,6 +197,8 @@ setup(
 
 def load_compiled_program(name, directory):
     sys.path.insert(0, directory + "/pyGP2_cache/build_pyGP2_" + name)
+    if "pyGP2_" + name in sys.modules:
+        del sys.modules["pyGP2_" + name]
     i = importlib.import_module("pyGP2_" + name)
     importlib.reload(i)
     sys.path.pop(0)
