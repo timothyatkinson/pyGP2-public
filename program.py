@@ -94,6 +94,7 @@ class GP2_Program:
 
         sys.path.insert(0, working_dir)
         i = importlib.import_module("pyGP2_" + self.name)
+        importlib.reload(i)
         sys.path.pop(0)
         self.apply = i.apply
 
@@ -195,6 +196,7 @@ setup(
 def load_compiled_program(name, directory):
     sys.path.insert(0, directory + "/pyGP2_cache/build_pyGP2_" + name)
     i = importlib.import_module("pyGP2_" + name)
+    importlib.reload(i)
     sys.path.pop(0)
     program = GP2_Program(name)
     program.compiled = True
