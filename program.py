@@ -95,8 +95,8 @@ class GP2_Program:
         process.terminate()
 
         sys.path.insert(0, working_dir)
-        if "pyGP2_" + self.name in sys.modules:
-            del sys.modules["pyGP2_" + self.name]
+        i = importlib.import_module("pyGP2_" + self.name)
+        importlib.reload(i)
         i = importlib.import_module("pyGP2_" + self.name)
         importlib.reload(i)
         sys.path.pop(0)
@@ -181,6 +181,8 @@ def get_cython_setup(name, gp2_dir, working_dir):
     my_string = '''from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
+import pyximport
+pyximport.install(reload_support=True)
 gp2_path = "''' + gp2_dir + '''"
 working_dir = "''' + working_dir + '''"
 examples_extension = Extension(
@@ -199,9 +201,9 @@ setup(
 
 def load_compiled_program(name, directory):
     sys.path.insert(0, directory + "/pyGP2_cache/build_pyGP2_" + name)
-    if "pyGP2_" + name in sys.modules:
-        del sys.modules["pyGP2_" + name]
     i = importlib.import_module("pyGP2_" + name)
+    importlib.reload(i)
+    i = importlib.import_module("pyGP2_" + self.name)
     importlib.reload(i)
     sys.path.pop(0)
     program = GP2_Program(name)
