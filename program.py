@@ -98,7 +98,7 @@ class GP2_Program:
         if "pyGP2_" + self.name in sys.modules:
             del sys.modules["pyGP2_" + self.name]
         i = importlib.import_module("pyGP2_" + self.name)
-        reload(i)
+        importlib.reload(i)
         sys.path.pop(0)
         self.apply = i.apply
 
@@ -202,7 +202,7 @@ def load_compiled_program(name, directory):
     if "pyGP2_" + name in sys.modules:
         del sys.modules["pyGP2_" + name]
     i = importlib.import_module("pyGP2_" + name)
-    reload(i)
+    importlib.reload(i)
     sys.path.pop(0)
     program = GP2_Program(name)
     program.compiled = True
