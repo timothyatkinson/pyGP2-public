@@ -6,6 +6,8 @@ import subprocess
 import shutil
 import importlib
 import os
+import pyximport
+pyximport.install(reload_support=True)
 
 #Change this to 'gp2.exe' on windows
 default_execute = 'gp2'
@@ -96,7 +98,7 @@ class GP2_Program:
         if "pyGP2_" + self.name in sys.modules:
             del sys.modules["pyGP2_" + self.name]
         i = importlib.import_module("pyGP2_" + self.name)
-        importlib.reload(i)
+        reload(i)
         sys.path.pop(0)
         self.apply = i.apply
 
@@ -200,7 +202,7 @@ def load_compiled_program(name, directory):
     if "pyGP2_" + name in sys.modules:
         del sys.modules["pyGP2_" + name]
     i = importlib.import_module("pyGP2_" + name)
-    importlib.reload(i)
+    reload(i)
     sys.path.pop(0)
     program = GP2_Program(name)
     program.compiled = True
