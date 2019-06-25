@@ -351,8 +351,7 @@ def delete_isolated_roots(c_graph: cGraph_wrapper):
   cdef Node* v = NULL
   for i in range(n_max):
       v = getNode(graph, i)
-      if v != NULL and v.index != -1:
-      if v.root == 1:
+      if v != NULL and v.index != -1 and v.root == 1:
         removeNode(graph, i)
-        
+
 srand(<long int>time(NULL))
