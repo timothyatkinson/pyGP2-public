@@ -344,6 +344,14 @@ def copy_graph_c(c_graph: cGraph_wrapper):
   wrapper.graph = copy
   return wrapper
 
+def count_nodes_c(c_graph: cGraph_wrapper):
+  cdef Graph* graph = c_graph.graph
+  return graph.number_of_nodes
+
+def count_edges_c(c_graph: cGraph_wrapper):
+  cdef Graph* graph = c_graph.graph
+  return graph.number_of_edges
+
 #When imported, srand is reset
 cdef extern from "stdlib.h":
     void srand(long int seedval)
