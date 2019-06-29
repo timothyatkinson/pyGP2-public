@@ -97,8 +97,6 @@ class GP2_Program:
         sys.path.insert(0, working_dir)
         try:
             del sys.modules["pyGP2_" + self.name]
-        except:
-            print("Could not delete module on compile", "pyGP2_" + self.name)
         i = importlib.import_module("pyGP2_" + self.name)
         importlib.reload(i)
         i = importlib.import_module("pyGP2_" + self.name)
@@ -207,8 +205,6 @@ def load_compiled_program(name, directory):
     sys.path.insert(0, directory + "/pyGP2_cache/build_pyGP2_" + name)
     try:
         del sys.modules["pyGP2_" + name]
-    except:
-        print("Could not delete module on load", "pyGP2_" + name)
     i = importlib.import_module("pyGP2_" + name)
     importlib.reload(i)
     i = importlib.import_module("pyGP2_" + name)
