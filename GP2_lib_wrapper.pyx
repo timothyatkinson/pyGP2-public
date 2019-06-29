@@ -267,6 +267,7 @@ cdef extern from "graph.h":
   int getOutdegree(Graph *graph, int index)
   void printfGraph(Graph *graph)
   void freeGraph(Graph *graph)
+  Graph* duplicate_graph(Graph *graph)
 
 #Wrapper for a C based GP 2 graph
 cdef class cGraph_wrapper:
@@ -335,6 +336,13 @@ def graph_to_py(c_graph: cGraph_wrapper):
 
 def free_graph_c(c_graph: cGraph_wrapper):
   freeGraph(c_graph.graph)
+
+def copy_graph_c(c_graph: cGraph_wrapper):
+  cdef Graph* graph = c_graph.graph
+  cdef Graph* copy = duplicate_graph(graph)
+  cdef cGraph_wrapper wrapper = cGraph_wrapper()
+  wrapper.graph = copy
+  return wrapper
 
 #When imported, srand is reset
 cdef extern from "stdlib.h":
