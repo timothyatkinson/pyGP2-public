@@ -92,7 +92,6 @@ class GP2_Program:
         #Build the c gp2 code into a shared library
         process = subprocess.Popen("make -C " + working_dir + "/", shell=True, stdout=subprocess.DEVNULL)
         process.wait()
-        process.terminate()
 
         sys.path.insert(0, working_dir)
         try:
