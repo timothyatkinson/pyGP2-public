@@ -1,4 +1,4 @@
-import pyGP2.config as config
+cimport pyGP2.config as config
 import pyGP2.GP2_lib as GP2_lib
 import sys
 from shutil import copyfile
@@ -185,9 +185,9 @@ cdef extern from "stdlib.h":
     int rand()
 
 def seed(x):
-    srand(x)
+    srand(<long int>x)
 
-def c_rand()
+def c_rand():
     return rand()'''
     return my_string
 
