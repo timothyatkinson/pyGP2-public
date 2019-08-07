@@ -1,4 +1,4 @@
-cimport pyGP2.config as config
+import pyGP2.config as config
 import pyGP2.GP2_lib as GP2_lib
 import sys
 from shutil import copyfile
