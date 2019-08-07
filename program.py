@@ -98,12 +98,12 @@ class GP2_Program:
             del sys.modules["pyGP2_" + self.name]
         except:
             pass
-        i = importlib.import_module("pyGP2_" + self.name)
-        importlib.reload(i)
-        i = importlib.import_module("pyGP2_" + self.name)
-        importlib.reload(i)
+        self.compiled_program = importlib.import_module("pyGP2_" + self.name)
+        importlib.reload(self.compiled_program)
+        self.compiled_program = importlib.import_module("pyGP2_" + self.name)
+        importlib.reload(self.compiled_program)
         sys.path.pop(0)
-        self.apply = i.apply
+        self.apply = self.compiled_program.apply
 
     #Applies the compiled program directly to a c_graph wrapper in GP2_lib's
     #cGraph_wrapper class
