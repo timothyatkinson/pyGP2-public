@@ -177,7 +177,18 @@ cdef extern from "''' + name + '''.h":
 
 def apply(graph):
   cdef cGraph_wrapper c_graph = <cGraph_wrapper> graph
-  return ''' + name + '''_execute(c_graph.graph)'''
+  return ''' + name + '''_execute(c_graph.graph)
+
+#When imported
+cdef extern from "stdlib.h":
+    void srand(long int seedval)
+    int rand()
+
+def seed(x):
+    srand(x)
+
+def c_rand()
+    return rand()'''
     return my_string
 
 def get_cython_setup(name, gp2_dir, working_dir):
