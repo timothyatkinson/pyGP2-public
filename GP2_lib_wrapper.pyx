@@ -268,6 +268,7 @@ cdef extern from "graph.h":
   void printfGraph(Graph *graph)
   void freeGraph(Graph *graph)
   Graph* duplicate_graph(Graph *graph)
+  Graph* disjoint_union(Graph* A, Graph* B)
 
 #Wrapper for a C based GP 2 graph
 cdef class cGraph_wrapper:
@@ -370,4 +371,10 @@ def delete_isolated_roots(c_graph: cGraph_wrapper):
       if v != NULL and v.index != -1 and v.root == 1:
         removeNode(graph, i)
 
-srand(<long int>time(NULL))
+def disjoint_union_c(A: cGraph_wrapper, B: cGraph_wrapper):
+  cdef Graph* A_graph = A.graph
+  cdef Graph* B_graph = B.graph
+  cdef Graph* union = disjoint_union(A_graph, B_graph)
+  cdef cGraph_wrapper wrapper = cGraph_wrapper()
+  wrapper.graph = union
+  return wrapper
